@@ -1,2 +1,2 @@
-# emarci
-Python emarci Library
+# emarci Python Libary
+Python emarci Library (currently developing)
