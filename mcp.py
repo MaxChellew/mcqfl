@@ -65,12 +65,9 @@ class data:
         # clean put data
         # drop unwanted columns
         put_data = put_data.drop(columns=["change", "percentChange", "inTheMoney", "contractSize", "currency", "impliedVolatility"])
-        # regular contracts have a size of 100
-        put_data["volume"] = put_data["volume"] * 100
-        put_data["openInterest"] = put_data["openInterest"] * 100
-        # remove iliquid options
-        put_data = put_data[put_data["openInterest"] > 5000]
-        put_data = put_data[put_data["volume"] > 5000]
+        # remove iliquid options, note: regular contracts have a size of 100
+        put_data = put_data[put_data["openInterest"] > 50]
+        put_data = put_data[put_data["volume"] > 50]
         # set lastTradeDate from datetime.datetime to datetime.date
         put_data["matuirty"] = pd.to_datetime(put_data["matuirty"]).dt.date
         put_data["lastTradeDate"] = pd.to_datetime(call_data["lastTradeDate"]).dt.date
