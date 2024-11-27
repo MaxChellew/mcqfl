@@ -1,4 +1,5 @@
 ### BlackScholes Libary
+
 # Author: Max Chellew
 
 ## Libarys
@@ -6,6 +7,7 @@
 # Import Libarys
 import numpy as np
 import scipy as sp
+import mcp
 
 ## Option Price Functions
 
