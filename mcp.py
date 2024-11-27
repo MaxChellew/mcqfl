@@ -95,5 +95,3 @@ no = yes.call_data
 print(no)
 
 ## Model and Calibration Class
-
-
