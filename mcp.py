@@ -49,12 +49,9 @@ class data:
         # clean call data
         # drop unwanted columns
         call_data = call_data.drop(columns=["change", "percentChange", "inTheMoney", "contractSize", "currency", "impliedVolatility"])
-        # regular contracts have a size of 100
-        call_data["volume"] = call_data["volume"] * 100
-        call_data["openInterest"] = call_data["openInterest"] * 100
-        # remove iliquid options
-        call_data = call_data[call_data["openInterest"] > 5000]
-        call_data = call_data[call_data["volume"] > 5000]
+        # remove iliquid options, note: regular contracts have a size of 100
+        call_data = call_data[call_data["openInterest"] > 50]
+        call_data = call_data[call_data["volume"] > 50]
         # set lastTradeDate and matuirty from datetime.datetime to datetime.date
         call_data["matuirty"] = pd.to_datetime(call_data["matuirty"]).dt.date
         call_data["lastTradeDate"] = pd.to_datetime(call_data["lastTradeDate"]).dt.date
