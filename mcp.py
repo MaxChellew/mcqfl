@@ -12,7 +12,7 @@ import yfinance as yf
 from datetime import datetime, timedelta
 
 # Import Local Libary
-#import BlackScholes as bs
+import BlackScholes as bs
 
 ## Data Class
 
@@ -92,4 +92,4 @@ class data:
 
 #SPY = data("SPY")
 
-#print(SPY.priceMatrix)
+#print(SPY.putPriceMatrix)
