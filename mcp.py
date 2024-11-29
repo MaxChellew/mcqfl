@@ -20,23 +20,36 @@ import BlackScholes as bs
 class data:
 
     def __init__(self, ticker):
+
+        ############################
         
         # set ticker
         self.ticker = ticker
 
+        ############################
+
         # collect todays date
         date_today = str(datetime.today()).split()[0]
 
-        # set todays and yesterdays date
-        self.tDate = date_today
-        self.yDate = date_today.replace(date_today[-1], str(int(date_today[-1]) - 1), -1)
+        # set todays date
+        self.currentDate = date_today
+
+        ############################
 
         # yfinance data setup 
         tick = yf.Ticker(ticker)
+
+        ############################
+
+        # set all listed option matruitys
         self.maturity = tick.options
+
+        ############################
 
         # set spot price
         self.spotPrice = tick.info["previousClose"]
+
+        ############################
 
         # collect all option data 
         call_data = pd.DataFrame()
@@ -53,6 +66,13 @@ class data:
         # set raw option data
         self.rawData = pd.concat([call_data, put_data], ignore_index=True)
 
+        ############################
+
+        # set target trade date
+        self.tradeDate = str(sorted((pd.to_datetime(self.rawData["lastTradeDate"]).dt.date).values)[-1])
+
+        ############################
+
         # clean call data
         # drop unwanted columns
         call_data = call_data.drop(columns=["change", "percentChange", "inTheMoney", "contractSize", "currency", "impliedVolatility"])
@@ -63,11 +83,13 @@ class data:
         call_data["maturity"] = pd.to_datetime(call_data["maturity"]).dt.date
         call_data["lastTradeDate"] = pd.to_datetime(call_data["lastTradeDate"]).dt.date
         # remove all last traded dates that are not yesterday
-        call_data = call_data[call_data["lastTradeDate"] == datetime.strptime(self.yDate, "%Y-%m-%d").date()]
+        call_data = call_data[call_data["lastTradeDate"] == datetime.strptime(self.tradeDate, "%Y-%m-%d").date()]
         # drop openIntrest and volume
         call_data = call_data.drop(columns=["openInterest", "volume"])
         # reset index
         call_data = call_data.reset_index(drop=True)
+
+        ############################
 
         # clean put data
         # drop unwanted columns
@@ -79,27 +101,29 @@ class data:
         put_data["maturity"] = pd.to_datetime(put_data["maturity"]).dt.date
         put_data["lastTradeDate"] = pd.to_datetime(call_data["lastTradeDate"]).dt.date
         # remove all last traded dates that are not yesterday
-        put_data = put_data[put_data["lastTradeDate"] == datetime.strptime(self.yDate, "%Y-%m-%d").date()]
+        put_data = put_data[put_data["lastTradeDate"] == datetime.strptime(self.tradeDate, "%Y-%m-%d").date()]
         # drop openIntrest and volume
         put_data = put_data.drop(columns=["openInterest", "volume"])
         # reset index
         put_data = put_data.reset_index(drop=True)
 
+        ############################
+
         # set put and call data
         self.callData = call_data
         self.putData = put_data
+
+        ############################
 
         # set price matrix
         self.callPriceMatrix = call_data.pivot_table(index="maturity", columns="strike", values="lastPrice")
         self.putPriceMatrix = put_data.pivot_table(index="maturity", columns="strike", values="lastPrice")
 
+
 ## Model and Calibration Class
 
-#SPY = data("SPY")
-
-#print(SPY.putPriceMatrix)
 
 ## run/test code
 
-SPY = data("SPY")
-print("yes")
+SPY = data("AAPL")
+print(SPY.callData)
