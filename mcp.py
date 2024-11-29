@@ -24,14 +24,19 @@ class data:
         # set ticker
         self.ticker = ticker
 
-        # set todays and yesterdays date
+        # collect todays date
         date_today = str(datetime.today()).split()[0]
+
+        # set todays and yesterdays date
         self.tDate = date_today
         self.yDate = date_today.replace(date_today[-1], str(int(date_today[-1]) - 1), -1)
 
         # yfinance data setup 
         tick = yf.Ticker(ticker)
         self.maturity = tick.options
+
+        # set spot price
+        self.spotPrice = tick.info["previousClose"]
 
         # collect all option data 
         call_data = pd.DataFrame()
@@ -93,3 +98,8 @@ class data:
 #SPY = data("SPY")
 
 #print(SPY.putPriceMatrix)
+
+## run/test code
+
+SPY = data("SPY")
+print("yes")
