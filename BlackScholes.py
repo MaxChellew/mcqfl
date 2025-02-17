@@ -33,3 +33,6 @@ def putV(St, K, tau, sigma, r):
     return -St*sp.stats.norm.cdf(-d1) + K*np.exp(-r*tau)*sp.stats.norm.cdf(-d2)
 
 ## Impied Volatility Functions
+
+def check(a, b):
+    return np.abs(a - b)
