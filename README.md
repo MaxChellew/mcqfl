@@ -1,7 +1,7 @@
-# emarci Python Libary
+# mc-Qunatative-Finance-Libary 
 
-This is the emarci Python Libary currencly in development, it will contain moduels used for option pricing.
+The mcqfl python Libary consisting of two seperate modules "tradingSimulation" and "optionPricing". Both modules are currently under development and as such this GitHub repostory is very much a **work-in-progress**.
 
 Current Moduel Plan:
-- BlackScholes: This Moduel will contain pricing functions for vinilia and exotic options priced using the Black-Scholes model. Additonally implied volaility functions will provided in this moduel.
-- yfmcp: The yFinance, Model, Calibration and Pricing moduel will contain classes and functions that will perform the cleaning of yfinance option chain data, claibration of different stochastic process models, and pricing of exotic option using different stochastic porcess models.
+- mcqfl.tradingSimulation: This Moduel will contain a serise of functions & classes that will help execute as well as perfomrance track algorithmic trading stratgies on past market data.
+- mcqfl.optionPricing: This moduel will contain a serise of functions & classes that will help price options with an exotic structure.
