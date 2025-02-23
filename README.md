@@ -1,4 +1,4 @@
-# mc-Qunatative-Finance-Libary 
+# mc-Quantitative-Finance-Libary 
 
 The mcqfl python Libary consisting of two seperate modules "tradingSimulation" and "optionPricing". Both modules are currently under development and as such this GitHub repostory is very much a **work-in-progress**.
 
